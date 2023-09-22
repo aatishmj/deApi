@@ -15,5 +15,5 @@ class emp_work(models.Model) :
     quantity=models.IntegerField()
 
 class Ad_data(models.Model) :
-    drawing=models.ImageField()
+    drawing=models.ImageField(upload_to='drawings/')
     name=models.CharField(max_length=100)
