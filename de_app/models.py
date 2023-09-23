@@ -9,7 +9,7 @@ class emp(models.Model):
         return self.name 
 
 class emp_work(models.Model):
-    name = models.ForeignKey(emp, on_delete=models.CASCADE)
+    name = models.ForeignKey(emp, on_delete=models.CASCADE, related_name='work_entries')  # Added related_name
     component_name = models.CharField(max_length=100)
     quantity = models.IntegerField()
     submission_time = models.DateTimeField(auto_now_add=True)

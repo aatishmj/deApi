@@ -20,6 +20,9 @@ from rest_framework.routers import DefaultRouter
 from de_app.views import EmployeeViewSet , EmployeeworkViewSet, adminViewSet
 from django.conf import settings
 from django.conf.urls.static import static
+from de_app.views import EmployeeWorkAPIView
+
+
 router = DefaultRouter()
 router.register(r'employees', EmployeeViewSet)
 router.register(r'employeework', EmployeeworkViewSet)
@@ -28,6 +31,7 @@ router.register(r'admin', adminViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path("employee_work/", EmployeeWorkAPIView.as_view(), name="employee_work"),
     
 ]
 if settings.DEBUG:

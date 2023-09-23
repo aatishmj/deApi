@@ -18,3 +18,27 @@ class EmployeeworkViewSet(viewsets.ModelViewSet):
 class adminViewSet(viewsets.ModelViewSet):
     queryset = Ad_data.objects.all()
     serializer_class = Ad_data_Serializer
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import emp, emp_work
+from .serializers import emp_Serializer, emp_work_Serializer
+
+class EmployeeWorkAPIView(APIView):
+    def get(self, request):
+        # Query all employees
+        employees = emp.objects.all()
+        employee_work_dict = {}
+
+        # Loop through employees and gather their work entries
+        for employee in employees:
+            # Query the work entries associated with this employee
+            work_entries = emp_work.objects.filter(name=employee)
+
+            # Serialize the work entries for this employee
+            work_serializer = emp_work_Serializer(work_entries, many=True)
+
+            # Add the employee's name as the key and the serialized work entries as the value
+            employee_work_dict[employee.name] = work_serializer.data
+
+        return Response(employee_work_dict)
