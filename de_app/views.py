@@ -3,7 +3,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import *
 from django.core.exceptions import ObjectDoesNotExist
-from .serializers import t_user_Serializer , t_info_Serializer
+from .serializers import t_user_Serializer , t_info_Serializer 
+from rest_framework import serializers
+
 # Create your views here.
 
 class T_UserViewSet(viewsets.ModelViewSet):
@@ -14,6 +16,7 @@ class T_UserViewSet(viewsets.ModelViewSet):
 class T_InfoViewSet(viewsets.ModelViewSet):
     queryset = t_info.objects.all()
     serializer_class = t_info_Serializer
+
 
 
 from rest_framework.views import APIView
@@ -39,3 +42,5 @@ class EmployeeWorkAPIView(APIView):
             employee_work_dict[employee.name] = work_serializer.data
 
         return Response(employee_work_dict)
+
+

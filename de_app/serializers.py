@@ -14,4 +14,3 @@ class t_info_Serializer(serializers.ModelSerializer) :
 
     def __str__(self):
         return self.name
-
