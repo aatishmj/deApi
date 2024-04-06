@@ -3,40 +3,37 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import *
 from django.core.exceptions import ObjectDoesNotExist
-from .serializers import emp_Serializer , emp_work_Serializer ,Ad_data_Serializer
+from .serializers import t_user_Serializer , t_info_Serializer
 # Create your views here.
 
-class EmployeeViewSet(viewsets.ModelViewSet):
-    queryset = emp.objects.all()
-    serializer_class = emp_Serializer
+class T_UserViewSet(viewsets.ModelViewSet):
+    queryset = t_user.objects.all()
+    serializer_class = t_user_Serializer
 
 
-class EmployeeworkViewSet(viewsets.ModelViewSet):
-    queryset = emp_work.objects.all()
-    serializer_class = emp_work_Serializer
+class T_InfoViewSet(viewsets.ModelViewSet):
+    queryset = t_info.objects.all()
+    serializer_class = t_info_Serializer
 
-class adminViewSet(viewsets.ModelViewSet):
-    queryset = Ad_data.objects.all()
-    serializer_class = Ad_data_Serializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import emp, emp_work
-from .serializers import emp_Serializer, emp_work_Serializer
+from .models import t_user, t_info
+from .serializers import t_info_Serializer, t_user_Serializer
 
 class EmployeeWorkAPIView(APIView):
     def get(self, request):
         # Query all employees
-        employees = emp.objects.all()
+        employees = t_user.objects.all()
         employee_work_dict = {}
 
         # Loop through employees and gather their work entries
         for employee in employees:
             # Query the work entries associated with this employee
-            work_entries = emp_work.objects.filter(name=employee)
+            work_entries = t_info.objects.filter(name=employee)
 
             # Serialize the work entries for this employee
-            work_serializer = emp_work_Serializer(work_entries, many=True)
+            work_serializer = t_info_Serializer(work_entries, many=True)
 
             # Add the employee's name as the key and the serialized work entries as the value
             employee_work_dict[employee.name] = work_serializer.data
